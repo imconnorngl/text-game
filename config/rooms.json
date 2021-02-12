@@ -2,7 +2,8 @@
     {
         "identifier": "basement",
         "name": "Basement",
-        "spawn": { "x": 0, "y": 0 },
+        "default": true,
+        "spawn": { "x": 6, "y": 0 },
         "objects": [
             { 
                 "identifier": "power_switch",
@@ -13,8 +14,14 @@
                 "identifier": "stairs",
                 "name": "Stairs",
                 "requirement": "power_on",
-                "location": { "x": 7, "y": 7 }
+                "location": { "x": 7, "y": 7 },
+                "travel": "upstairs"
             }
         ]
+    },
+    {
+        "identifier": "upstairs",
+        "name": "Upstairs",
+        "spawn": { "x": 0, "y": 0 }
     }
 ]

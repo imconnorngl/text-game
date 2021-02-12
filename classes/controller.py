@@ -1,6 +1,11 @@
 class Controller:
-    def __init__(self):
-        self.position = { "x": 0, "y": 0 }
+    def __init__(self, rooms):
+        self.rooms = rooms
+        self.position = { "x" : 0, "y" : 0 }
+
+        default = next((x for x in self.rooms if x["default"]), None)
+        self.setupRoom(default)
+
     def onPress(self, key):
         try:
             k = key.char
@@ -16,9 +21,13 @@ class Controller:
             }
 
             self.moveBy(directions[k])
-    
+            
     def moveBy(self, movement):
         self.position["x"] += movement["x"]
         self.position["y"] += movement["y"]
 
         print(self.position)
+
+    def setupRoom(self, room):
+        self.position = room["spawn"]
+
