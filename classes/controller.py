@@ -13,15 +13,14 @@ class Controller:
 
         # Setup Renderer Class
         self.renderer = Renderer(self.rooms, self.position, self.room, self.stats)
-        self.renderer.changeRoom(self.room)
+
+        self.room = self.renderer.changeRoom(self.room)
         self.position = self.renderer.render()
 
     # Define the onPress function which handles key presses
     def onPress(self, key):
-        try:
-            k = key.char
-        except:
-            k = key.name
+        try: k = key.char
+        except: k = key.name
 
         if self.stats["movement"] and k in ['left', 'right', 'up', 'down']:
             directions = {

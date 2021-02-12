@@ -11,7 +11,7 @@ class Renderer:
     def changeRoom(self, room):
         self.room = room
         self.position = room["spawn"]
-        return self.position
+        return self.room
 
     # Renders the interactive display for the user
     def render(self):
