@@ -7,7 +7,42 @@ class Renderer:
         self.position = position
         self.room = room
 
+    # Changes the room which the user is located in
+    def changeRoom(self, room):
+        self.room = room
+        self.position = room["spawn"]
+        return self.position
+
+    # Renders the interactive display for the user
     def render(self):
+        currentObject = next((x for x in self.room["objects"] if x["location"] == self.position), None)
+
+        if currentObject and currentObject["location"] == self.position:
+            self.sendGrid()
+            
+            self.stats["movement"] = False
+
+            # Executes the event which is required to occur at the location
+            print("Press ENTER to move onto the next prompt.")
+            for prompt in currentObject["prompts"]:
+                input(prompt)
+        
+            # Gives the user any rewards the object offers
+            if "rewards" in currentObject: self.stats["requirements"].append(currentObject["rewards"])
+
+            # Moves the user to any room the object offers
+            if "travel" in currentObject:
+                room = next((x for x in self.rooms if x["identifier"] == currentObject["travel"]), None)
+                self.changeRoom(room)
+
+            self.stats["movement"] = True
+
+            return self.sendGrid()
+        else:
+            return self.sendGrid()
+
+    # Sends the grid of the users current location
+    def sendGrid(self):
         grid = ""
         for y in range(10, -1, -1):
             row = ""
@@ -27,5 +62,5 @@ class Renderer:
                     row += "X"
             grid += row
             grid += "\n"
-
         print(grid)
+        return self.position

@@ -3,25 +3,44 @@
         "identifier": "basement",
         "name": "Basement",
         "default": true,
-        "spawn": { "x": 6, "y": 0 },
+        "spawn": { "x": 5, "y": 5 },
         "objects": [
             { 
                 "identifier": "power_switch",
                 "name": "Fuse Board",
-                "location": { "x": 3, "y": 3 }
+                "location": { "x": 3, "y": 3 },
+                "prompts": [
+                    "You have found a fuse board."
+                ],
+                "rewards": "power_on"
             },
             { 
-                "identifier": "stairs",
+                "identifier": "stairs_up",
                 "name": "Stairs",
                 "requirement": "power_on",
-                "location": { "x": 7, "y": 7 },
-                "travel": "upstairs"
+                "location": { "x": 7, "y": 10 },
+                "travel": "upstairs",
+                "prompts": [
+                    "You have found the stairs."
+                ]
             }
         ]
     },
     {
         "identifier": "upstairs",
         "name": "Upstairs",
-        "spawn": { "x": 0, "y": 0 }
+        "spawn": { "x": 5, "y": 5 },
+        "objects": [
+            { 
+                "identifier": "stairs_down",
+                "name": "Stairs",
+                "requirement": "power_on",
+                "location": { "x": 7, "y": 0 },
+                "travel": "basement",
+                "prompts": [
+                    "You have found the stairs."
+                ]
+            }
+        ]
     }
 ]
