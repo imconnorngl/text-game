@@ -10,8 +10,10 @@
                 "name": "Fuse Board",
                 "location": { "x": 3, "y": 3 },
                 "prompts": [
-                    "You have found a fuse board."
+                    "You have found a fuse board.",
+                    "It seems to be off... Maybe you could turn it on?"
                 ],
+                "func": "power_switch",
                 "rewards": "power_on"
             },
             { 
@@ -19,9 +21,13 @@
                 "name": "Stairs",
                 "requirement": "power_on",
                 "location": { "x": 7, "y": 10 },
-                "travel": "upstairs",
+                "travel": {
+                    "room": "upstairs",
+                    "position": { "x": 7, "y": 1}
+                },
                 "prompts": [
-                    "You have found the stairs."
+                    "You have found the stairs.",
+                    "Heading up them seems like a good idea... Maybe it's a way out."
                 ]
             }
         ]
@@ -36,9 +42,13 @@
                 "name": "Stairs",
                 "requirement": "power_on",
                 "location": { "x": 7, "y": 0 },
-                "travel": "basement",
+                "travel": {
+                    "room": "basement",
+                    "position": { "x": 7, "y": 9 }
+                },
                 "prompts": [
-                    "You have found the stairs."
+                    "You have found the stairs.",
+                    "Heading down seems pointless... You've already been down there."
                 ]
             }
         ]

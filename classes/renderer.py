@@ -1,3 +1,7 @@
+from .task import Tasks
+
+import time
+
 class Renderer:
     def __init__(self, rooms, position, room, stats):
         # Setup Default Variables
@@ -6,11 +10,15 @@ class Renderer:
         self.rooms = rooms
         self.position = position
         self.room = room
+        self.tasks = Tasks(self.stats)
 
     # Changes the room which the user is located in
-    def changeRoom(self, room):
+    def changeRoom(self, room, position = {}):
         self.room = room
-        self.position = room["spawn"]
+
+        if bool(position): self.position = position
+        else: self.position = room["spawn"]
+
         return self.room
 
     # Renders the interactive display for the user
@@ -22,18 +30,28 @@ class Renderer:
             
             self.stats["movement"] = False
 
-            # Executes the event which is required to occur at the location
-            print("Press ENTER to move onto the next prompt.")
+            # Displays the prompts for an event
             for prompt in currentObject["prompts"]:
-                input(prompt)
-        
+                print(prompt)
+                time.sleep(1)
+
+            # Executes the function for an event
+            if "func" in currentObject: self.tasks.task(currentObject["func"])
+
             # Gives the user any rewards the object offers
             if "rewards" in currentObject: self.stats["requirements"].append(currentObject["rewards"])
 
             # Moves the user to any room the object offers
             if "travel" in currentObject:
-                room = next((x for x in self.rooms if x["identifier"] == currentObject["travel"]), None)
-                self.changeRoom(room)
+                room = next((x for x in self.rooms if x["identifier"] == currentObject["travel"]["room"]), None)
+                
+                if bool(room):
+                    if "position" in currentObject["travel"]:
+                        self.changeRoom(room, currentObject["travel"]["position"])
+                    else: 
+                        self.changeRoom(room)
+                else:
+                    print("This door lead nowhere...")
 
             self.stats["movement"] = True
 
