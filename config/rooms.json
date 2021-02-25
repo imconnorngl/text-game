@@ -50,6 +50,17 @@
                     "You have found the stairs.",
                     "Heading down seems pointless... You've already been down there."
                 ]
+            },
+            { 
+                "identifier": "phone",
+                "name": "Phone",
+                "location": { "x": 8, "y": 8 },
+                "prompts": [
+                    "You have found a phone.",
+                    "It seems to be on... there's a message that can be seen."
+                ],
+                "func": "check_phone",
+                "rewards": "talked_phone"
             }
         ]
     }
