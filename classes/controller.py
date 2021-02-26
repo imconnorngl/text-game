@@ -8,7 +8,7 @@ class Controller:
         self.position = { "x": 0, "y": 0 }
         self.stats = {
             "movement": True,
-            "requirements": []
+            "requirements": ["power_on"]
         }
 
         # Setup Renderer Class

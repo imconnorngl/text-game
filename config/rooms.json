@@ -40,7 +40,6 @@
             { 
                 "identifier": "stairs_down",
                 "name": "Stairs",
-                "requirement": "power_on",
                 "location": { "x": 7, "y": 0 },
                 "travel": {
                     "room": "basement",
