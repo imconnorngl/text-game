@@ -19,10 +19,8 @@ class Fight:
     def startFight(self):
         while True:
             self.playerHit()
-            self.display()
             time.sleep(2)
             self.bossHit()
-            self.display()
             if self.stats["health"] <= 0:
                 return self.stats
             elif self.boss["health"] <= 0:
@@ -48,6 +46,7 @@ class Fight:
             self.boss["health"] -= move["damage"]
         else:
             print("You didn't choose your move wisely... Skipped.")
+        self.display()
 
     def bossHit(self):
         index = random.randint(0, 3)
@@ -56,6 +55,7 @@ class Fight:
         print("\n".join(art))
         print("The enemy did a " + move["name"] + " and you lost " + str(move["damage"]))
         self.stats["health"] -= move["damage"]
+        self.display()
 
     def display(self):
         print("Your health is", self.stats["health"])
