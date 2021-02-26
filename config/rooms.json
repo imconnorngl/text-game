@@ -17,6 +17,17 @@
                 "rewards": "power_on"
             },
             { 
+                "identifier": "jaw_trap",
+                "name": "Jaw Trap",
+                "location": { "x": 6, "y": 2 },
+                "prompts": [
+                    "You walk upon a trap and wake back up in the room...",
+                    "A large metal jaw is placed around your face,",
+                    "You break free just in time but still have some mild wounds."
+                ],
+                "trap": true
+            },
+            { 
                 "identifier": "stairs_up",
                 "name": "Stairs",
                 "requirement": "power_on",
@@ -60,6 +71,40 @@
                 ],
                 "func": "check_phone",
                 "rewards": "talked_phone"
+            },
+            { 
+                "identifier": "saw_trap",
+                "name": "Saw Trap",
+                "location": { "x": 1, "y": 10 },
+                "prompts": [
+                    "You walk upon a trap and it freezes you in place.",
+                    "You aren't able to move and a saw blade comes down from the roof",
+                    "Your arm is taken off..."
+                ],
+                "trap": true
+            },
+            { 
+                "identifier": "acid_trap",
+                "name": "Acid Trap",
+                "location": { "x": 6, "y": 2 },
+                "prompts": [
+                    "You walk upon a trap and it ties you up to the ceiling.",
+                    "A drop of a water like substance drops from the ceiling and it burns your flesh",
+                    "You break free with mild acid burns to the stomach"
+                ],
+                "trap": true
+            },
+            { 
+                "identifier": "boss_battle",
+                "name": "Boss Battle",
+                "requirement": "talked_phone",
+                "location": { "x": 0, "y": 0 },
+                "prompts": [
+                    "You see a man staring up at you...",
+                    "He wants you dead..."
+                ],
+                "func": "fight_captor",
+                "rewards": "captor_fought"
             }
         ]
     }

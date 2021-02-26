@@ -4,13 +4,13 @@ class Switch:
     def __init__(self):
         self.grid = [
             [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-            [1, 1, 3, 1, 1, 1, 1, 1, 1, 1],
-            [1, 1, 0, 1, 1, 1, 1, 1, 1, 1],
-            [1, 1, 0, 1, 1, 1, 1, 1, 1, 1],
-            [1, 1, 0, 1, 1, 1, 1, 1, 1, 1],
-            [1, 1, 0, 1, 1, 1, 1, 1, 1, 1],
-            [1, 1, 0, 1, 1, 1, 1, 1, 1, 1],
-            [1, 1, 0, 1, 1, 1, 1, 1, 1, 1],
+            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 1, 0, 1, 1, 0, 0, 0, 3, 1],
+            [1, 1, 0, 1, 1, 0, 1, 1, 1, 1],
+            [1, 1, 0, 0, 0, 0, 1, 1, 1, 1],
+            [1, 0, 0, 1, 1, 0, 1, 1, 1, 1],
+            [1, 1, 1, 1, 1, 0, 1, 1, 1, 1],
+            [1, 1, 0, 0, 0, 0, 1, 1, 1, 1],
             [1, 1, 0, 1, 1, 1, 1, 1, 1, 1],
             [1, 1, 0, 1, 1, 1, 1, 1, 1, 1],
             [1, 1, 2, 1, 1, 1, 1, 1, 1, 1],
@@ -29,7 +29,23 @@ class Switch:
             listener.join()
 
     def render(self):
-        print(self.position)
+        grid = ""
+        for row in range(0, len(self.grid)):
+            rows = ""
+            for column in range(0, len(self.grid[row])):
+                currentPosition = { "x": row, "y": column }
+                if currentPosition == self.position:
+                    rows += "O"
+                else:
+                    if (currentPosition["x"] - self.position["x"]) <= 1 and (currentPosition["x"] - self.position["x"]) >= -1:
+                        rows += str(self.grid[row][column])
+                    else:
+                        rows += "X"      
+
+            grid += rows
+            grid += "\n"
+
+        print(grid)
 
     def press(self, key):
         try: k = key.char
@@ -38,10 +54,10 @@ class Switch:
 
         if k in ['left', 'right', 'up', 'down']:
             directions = {
-                "left": { "x": 1, "y": 0 },
-                "right": { "x": -1, "y": 0 },
-                "up": { "x": 0, "y": 1 },
-                "down": { "x": 0, "y": -1 },
+                "left": { "x": 0, "y": -1 },
+                "right": { "x": 0, "y": 1 },
+                "up": { "x": -1, "y": 0 },
+                "down": { "x": 1, "y": 0 },
             }
 
             return self.move(directions[k])

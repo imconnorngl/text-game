@@ -15,6 +15,14 @@ for line in introduction:
     print(line)
     time.sleep(1)
 
+title = open('config/art/title.txt').read().splitlines()
+
+for line in title:
+    print(line)
+    time.sleep(0.1)
+
+time.sleep(2)
+
 controller = Controller(rooms)
 
 with Listener(on_press=controller.onPress) as listener:

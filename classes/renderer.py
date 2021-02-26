@@ -1,6 +1,6 @@
 from .task import Tasks
 
-import time
+import time, random
 
 class Renderer:
     def __init__(self, rooms, position, room, stats):
@@ -36,24 +36,47 @@ class Renderer:
                 time.sleep(1)
 
             # Executes the function for an event
-            if "func" in currentObject: self.tasks.task(currentObject["func"])
+            if "trap" in currentObject: self.stats["health"] -= random.randint(5, 25)
+            else:
+                if "func" in currentObject: self.stats = self.tasks.task(currentObject["func"], self.stats)
 
-            # Gives the user any rewards the object offers
-            if "rewards" in currentObject: self.stats["requirements"].append(currentObject["rewards"])
+                # Gives the user any rewards the object offers
+                if "rewards" in currentObject: self.stats["requirements"].append(currentObject["rewards"])
 
-            # Moves the user to any room the object offers
-            if "travel" in currentObject:
-                room = next((x for x in self.rooms if x["identifier"] == currentObject["travel"]["room"]), None)
-                
-                if bool(room):
-                    if "position" in currentObject["travel"]:
-                        self.changeRoom(room, currentObject["travel"]["position"])
-                    else: 
-                        self.changeRoom(room)
-                else:
-                    print("This door lead nowhere...")
+                # Moves the user to any room the object offers
+                if "travel" in currentObject:
+                    room = next((x for x in self.rooms if x["identifier"] == currentObject["travel"]["room"]), None)
+                    
+                    if bool(room):
+                        if "position" in currentObject["travel"]:
+                            self.changeRoom(room, currentObject["travel"]["position"])
+                        else: 
+                            self.changeRoom(room)
+                    else:
+                        print("This door lead nowhere...")
 
             self.stats["movement"] = True
+
+            if self.stats["health"] <= 0:
+                gameover = open('config/art/gameover.txt').read().splitlines()
+
+                for line in gameover:
+                    print(line)
+                    time.sleep(0.1)
+
+                time.sleep(1)
+                print("You lost all your health...")
+                exit()
+            elif "captor_fought" in self.stats["requirements"]:
+                title = open('config/art/win.txt').read().splitlines()
+
+                for line in title:
+                    print(line)
+                    time.sleep(0.1)
+
+                time.sleep(1)
+                print("You finished with a health of " + str(self.stats["health"]))
+                exit()
 
             return self.sendGrid()
         else:
@@ -80,5 +103,6 @@ class Renderer:
                     row += "X"
             grid += row
             grid += "\n"
+        print("Your health is " + str(self.stats["health"]))
         print(grid)
         return self.position

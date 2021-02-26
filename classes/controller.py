@@ -7,8 +7,9 @@ class Controller:
         self.room = next((x for x in self.rooms if x["default"]), None)
         self.position = { "x": 0, "y": 0 }
         self.stats = {
+            "health": 100,
             "movement": True,
-            "requirements": ["power_on"]
+            "requirements": []
         }
 
         # Setup Renderer Class
@@ -22,7 +23,11 @@ class Controller:
         try: k = key.char
         except: k = key.name
 
-        if self.stats["movement"] and k in ['left', 'right', 'up', 'down']:
+        if k == "esc":
+            print("THANK YOU FOR PLAYING")
+            exit()
+        
+        elif self.stats["movement"] and k in ['left', 'right', 'up', 'down']:
             directions = {
                 "left": { "x": 1, "y": 0 },
                 "right": { "x": -1, "y": 0 },
