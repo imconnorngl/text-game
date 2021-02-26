@@ -9,6 +9,7 @@ class Controller:
         self.stats = {
             "health": 100,
             "movement": True,
+            "inventory": [],
             "requirements": []
         }
 

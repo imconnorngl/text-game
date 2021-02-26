@@ -43,6 +43,9 @@ class Renderer:
                 # Gives the user any rewards the object offers
                 if "rewards" in currentObject: self.stats["requirements"].append(currentObject["rewards"])
 
+                # Gives the user any items the object offers
+                if "item" in currentObject: self.stats["inventory"].append(currentObject["item"])
+
                 # Moves the user to any room the object offers
                 if "travel" in currentObject:
                     room = next((x for x in self.rooms if x["identifier"] == currentObject["travel"]["room"]), None)

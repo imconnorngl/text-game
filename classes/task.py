@@ -1,5 +1,6 @@
 import sys, time
 from .tasks.switch import Switch
+from .tasks.boss import Fight
 
 class Tasks:
     def __init__(self, stats):
@@ -13,7 +14,7 @@ class Tasks:
     def task(self, task, stats):
         return self.tasks[task](stats)
 
-    # Power Switch
+    # Power Task
     def power_switch(self, stats):
         Switch()
         input("PRESS ENTER TO TURN ON THE POWER")
@@ -38,8 +39,9 @@ class Tasks:
         stats["health"] += health
         return stats
 
+    # Fight Task
     def fight_captor(self, stats):
-        #Fight()
+        stats = Fight(stats).startFight()
         input("PRESS ENTER TO END FIGHT SCENE")
         return stats
 

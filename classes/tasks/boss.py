@@ -1,0 +1,60 @@
+import random, time
+
+class Fight:
+    def __init__(self, stats):
+        self.stats = stats
+        self.boss = { 
+            "health": 100 
+        }
+
+        self.moves = [
+            { "name": "Kick", "file": "1", "damage": 20 },
+            { "name": "Side Punch", "file": "2", "damage": 5 },
+            { "name": "Forward Punch", "file": "3", "damage": 10 },
+            { "name": "Sucker Punch", "file": "4", "damage": 25 },
+            { "name": "Stick Hit", "file": "5", "damage": 40, "requirement": "stick" },
+        ]
+
+    def startFight(self):
+        while True:
+            self.playerHit()
+            self.display()
+            time.sleep(2)
+            self.bossHit()
+            self.display()
+            if self.stats["health"] <= 0:
+                return self.stats
+            elif self.boss["health"] <= 0:
+                return self.stats
+
+    def playerHit(self):
+        string = ""
+        for move in self.moves:
+            if ("requirement" in move and move["requirement"] in self.stats["inventory"]) or "requirement" not in move:
+                string += move["file"] + ". " + move["name"] + "\n"
+        print("\n\n" + string)
+        move = input("SELECT A MOVE\n\n")
+
+        try: index = int(move) - 1
+        except: index = None
+        
+        if type(index) is int:
+            move = self.moves[index]
+            art = open('config/art/movement/' + move["file"] + '.txt').read().splitlines()
+            print("\n".join(art))
+            print("You did a " + move["name"] + " and the enemy lost " + str(move["damage"]))
+            self.boss["health"] -= move["damage"]
+        else:
+            print("You didn't choose your move wisely... Skipped.")
+
+    def bossHit(self):
+        index = random.randint(0, 4)
+        move = self.moves[index]
+        art = open('config/art/movement/' + move["file"] + '.txt').read().splitlines()
+        print("\n".join(art))
+        print("The enemy did a " + move["name"] + " and you lost " + str(move["damage"]))
+        self.stats["health"] -= move["damage"]
+
+    def display(self):
+        print("Your health is", self.stats["health"])
+        print("The bosses health is", self.boss["health"])

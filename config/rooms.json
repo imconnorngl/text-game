@@ -95,6 +95,16 @@
                 "trap": true
             },
             { 
+                "identifier": "stick",
+                "name": "Stick",
+                "location": { "x": 3, "y": 2 },
+                "prompts": [
+                    "You find a stick...",
+                    "This could be useful later ;)"
+                ],
+                "item": "stick"
+            },
+            { 
                 "identifier": "boss_battle",
                 "name": "Boss Battle",
                 "requirement": "talked_phone",
