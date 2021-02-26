@@ -94,16 +94,16 @@ class Renderer:
                 currentPosition = { "x": x, "y": y }
                 currentObject = next((x for x in self.room["objects"] if x["location"] == currentPosition), None)
                 if currentPosition == self.position:
-                    row += "O"
+                    row += " O "
                 elif currentObject:
                     if "requirement" not in currentObject:
-                        row += "#"
+                        row += " # "
                     elif "requirement" in currentObject and currentObject["requirement"] in self.stats["requirements"]:
-                        row += "#"
+                        row += " # "
                     else:
-                        row += "X"
+                        row += " X "
                 else:
-                    row += "X"
+                    row += " X "
             grid += row
             grid += "\n"
         print("Your health is " + str(self.stats["health"]))
