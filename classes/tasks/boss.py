@@ -12,8 +12,9 @@ class Fight:
             { "name": "Side Punch", "file": "2", "damage": 5 },
             { "name": "Forward Punch", "file": "3", "damage": 10 },
             { "name": "Sucker Punch", "file": "4", "damage": 25 },
-            { "name": "Stick Hit", "file": "5", "damage": 40, "requirement": "stick" },
         ]
+
+        if "stick" in self.stats["inventory"]: self.moves.append({ "name": "Stick Hit", "file": "5", "damage": 40 })
 
     def startFight(self):
         while True:
@@ -30,16 +31,17 @@ class Fight:
     def playerHit(self):
         string = ""
         for move in self.moves:
-            if ("requirement" in move and move["requirement"] in self.stats["inventory"]) or "requirement" not in move:
-                string += move["file"] + ". " + move["name"] + "\n"
+            string += move["file"] + ". " + move["name"] + "\n"
         print("\n\n" + string)
         move = input("SELECT A MOVE\n\n")
 
-        try: index = int(move) - 1
-        except: index = None
-        
-        if type(index) is int:
+        try: 
+            index = int(move) - 1
             move = self.moves[index]
+        except:
+            move = None
+        
+        if move is not None:
             art = open('config/art/movement/' + move["file"] + '.txt').read().splitlines()
             print("\n".join(art))
             print("You did a " + move["name"] + " and the enemy lost " + str(move["damage"]))
@@ -48,7 +50,7 @@ class Fight:
             print("You didn't choose your move wisely... Skipped.")
 
     def bossHit(self):
-        index = random.randint(0, 4)
+        index = random.randint(0, 3)
         move = self.moves[index]
         art = open('config/art/movement/' + move["file"] + '.txt').read().splitlines()
         print("\n".join(art))

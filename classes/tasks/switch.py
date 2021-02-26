@@ -35,12 +35,12 @@ class Switch:
             for column in range(0, len(self.grid[row])):
                 currentPosition = { "x": row, "y": column }
                 if currentPosition == self.position:
-                    rows += "O"
+                    rows += " O "
                 else:
                     if (currentPosition["x"] - self.position["x"]) <= 1 and (currentPosition["x"] - self.position["x"]) >= -1:
-                        rows += str(self.grid[row][column])
+                        rows += " " + str(self.grid[row][column]) + " "
                     else:
-                        rows += "X"      
+                        rows += " X "      
 
             grid += rows
             grid += "\n"
