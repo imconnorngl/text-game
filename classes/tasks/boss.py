@@ -16,15 +16,16 @@ class Fight:
 
         if "stick" in self.stats["inventory"]: self.moves.append({ "name": "Stick Hit", "file": "5", "damage": 40 })
 
-    def startFight(self):
+    def start(self):
         while True:
             self.playerHit()
-            time.sleep(2)
-            self.bossHit()
             if self.stats["health"] <= 0:
                 return self.stats
-            elif self.boss["health"] <= 0:
+            time.sleep(2)
+            self.bossHit()
+            if self.boss["health"] <= 0:
                 return self.stats
+
 
     def playerHit(self):
         string = ""

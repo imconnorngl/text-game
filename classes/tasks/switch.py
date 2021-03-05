@@ -1,7 +1,9 @@
 from pynput.keyboard import Key, Listener
 
 class Switch:
-    def __init__(self):
+    def __init__(self, stats):
+        self.stats = stats
+        
         self.grid = [
             [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
             [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -24,9 +26,11 @@ class Switch:
 
         self.position = getPosition(self.grid, 2)
 
+    def start(self):
         self.render()
         with Listener(on_press=self.press) as listener:
             listener.join()
+        return self.stats
 
     def render(self):
         grid = ""

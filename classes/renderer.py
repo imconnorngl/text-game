@@ -25,38 +25,39 @@ class Renderer:
     def render(self):
         currentObject = next((x for x in self.room["objects"] if x["location"] == self.position), None)
 
-        if currentObject and currentObject["location"] == self.position:
-            self.sendGrid()
-            
-            self.stats["movement"] = False
+        if currentObject:
+            if ("requirements" in currentObject and currentObject["requirements"] in self.stats["requirements"]) or ("requirements" not in currentObject):
+                self.sendGrid()
+                
+                self.stats["movement"] = False
 
-            # Displays the prompts for an event
-            for prompt in currentObject["prompts"]:
-                print(prompt)
-                time.sleep(1)
+                # Displays the prompts for an event
+                for prompt in currentObject["prompts"]:
+                    print(prompt)
+                    time.sleep(1)
 
-            # Executes the function for an event
-            if "trap" in currentObject: self.stats["health"] -= random.randint(5, 25)
-            else:
-                if "func" in currentObject: self.stats = self.tasks.task(currentObject["func"], self.stats)
+                # Executes the function for an event
+                if "trap" in currentObject: self.stats["health"] -= random.randint(5, 25)
+                else:
+                    if "func" in currentObject: self.stats = self.tasks.task(currentObject["func"], self.stats)
 
-                # Gives the user any rewards the object offers
-                if "rewards" in currentObject: self.stats["requirements"].append(currentObject["rewards"])
+                    # Gives the user any rewards the object offers
+                    if "rewards" in currentObject: self.stats["requirements"].append(currentObject["rewards"])
 
-                # Gives the user any items the object offers
-                if "item" in currentObject: self.stats["inventory"].append(currentObject["item"])
+                    # Gives the user any items the object offers
+                    if "item" in currentObject: self.stats["inventory"].append(currentObject["item"])
 
-                # Moves the user to any room the object offers
-                if "travel" in currentObject:
-                    room = next((x for x in self.rooms if x["identifier"] == currentObject["travel"]["room"]), None)
-                    
-                    if bool(room):
-                        if "position" in currentObject["travel"]:
-                            self.changeRoom(room, currentObject["travel"]["position"])
-                        else: 
-                            self.changeRoom(room)
-                    else:
-                        print("This door lead nowhere...")
+                    # Moves the user to any room the object offers
+                    if "travel" in currentObject:
+                        room = next((x for x in self.rooms if x["identifier"] == currentObject["travel"]["room"]), None)
+                        
+                        if bool(room):
+                            if "position" in currentObject["travel"]:
+                                self.changeRoom(room, currentObject["travel"]["position"])
+                            else: 
+                                self.changeRoom(room)
+                        else:
+                            print("This door lead nowhere...")
 
             self.stats["movement"] = True
 

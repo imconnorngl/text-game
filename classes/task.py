@@ -16,7 +16,7 @@ class Tasks:
 
     # Power Task
     def power_switch(self, stats):
-        Switch()
+        stats = Switch(stats).start()
         input("PRESS ENTER TO TURN ON THE POWER")
         return stats
 
@@ -41,7 +41,7 @@ class Tasks:
 
     # Fight Task
     def fight_captor(self, stats):
-        stats = Fight(stats).startFight()
+        stats = Fight(stats).start()
         input("PRESS ENTER TO END FIGHT SCENE")
         return stats
 
