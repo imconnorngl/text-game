@@ -47,3 +47,11 @@ class Controller:
             self.position["y"] += movement["y"]
 
             self.position = self.renderer.render()
+
+
+
+
+
+
+
+            
