@@ -19,11 +19,11 @@ class Fight:
     def start(self):
         while True:
             self.playerHit()
-            if self.stats["health"] <= 0:
+            if self.boss["health"] <= 0:
                 return self.stats
             time.sleep(2)
             self.bossHit()
-            if self.boss["health"] <= 0:
+            if self.stats["health"] <= 0:
                 return self.stats
 
 
